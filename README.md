@@ -14,5 +14,5 @@ The relevant chapter in this project :
 
 Development environment
 
--Development tool : Xcode Version 7.2.1
--Language : C++ 11
+- Development tool : Xcode Version 7.2.1
+- Language : C++ 11
