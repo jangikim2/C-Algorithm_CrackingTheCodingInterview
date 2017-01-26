@@ -11,8 +11,10 @@
 using namespace std;
 
 class Node;
+void deleteDups2(Node *head);
 int nthToLast(list<int> head, int n);
 Node * addLists(Node *l1, Node *l2, int carry);
+Node * FindBeginning(Node *head);
 
 
 //http://code.runnable.com/Us53QO5op1hWAACi/how-to-remove-a-node-from-a-linked-list-for-c%2B%2B
@@ -196,6 +198,22 @@ int main(int argc, const char * argv[]) {
     // insert code here...
     std::cout << "Hello, World!\n";
     
+    //2.1
+    Node *A1 = new Node(5);
+    Node *B1 = new Node(3);
+    Node *C1 = new Node(5);
+    Node *D1 = new Node(3);
+    Node *E1 = new Node(5);
+    Node *F1 = new Node(1);
+    
+    A1->setNext(B1);
+    B1->setNext(C1);
+    C1->setNext(D1);
+    D1->setNext(E1);
+    E1->setNext(F1);
+    
+    deleteDups2(A1);
+    
     //2.2
     std::list<int> testlist{1,2,3,4,5,6};
     int nthint = 0;
@@ -244,10 +262,50 @@ int main(int argc, const char * argv[]) {
     }
     
     //2.5
+    Node *A = new Node(1);
+    Node *B = new Node(2);
+    Node *C = new Node(3);
+    Node *D = new Node(4);
+    Node *E = new Node(5);
+    
+    A->setNext(B);
+    B->setNext(C);
+    C->setNext(D);
+    D->setNext(E);
+    E->setNext(C);
+    
+    Node *beginningreturn = FindBeginning(A);
     
     return 0;
 }
 
+//2.1
+void deleteDups2(Node *head)
+{
+    if (head == nullptr) {
+        return;
+    }
+    
+    Node *previous = head;
+    Node *current = previous->getNext();
+    while (current != nullptr) {
+        Node * runner = head;
+        while (runner != current) {
+            if (runner->getValue() == current->getValue()) {
+                Node *tmp = current->getNext();
+                previous->setNext(tmp);
+                delete current;//jangikim
+                current = tmp;
+                break;
+            }
+            runner = runner->getNext();
+        }
+        if (runner == current) {
+            previous = current;
+            current = current->getNext();
+        }
+    }
+}
 
 //2.2
 int nthToLast(list<int> head, int n) {
@@ -301,4 +359,29 @@ Node * addLists(Node *l1, Node *l2, int carry)
 
     result->setNext(more);
     return result;
+}
+
+//2.5
+Node * FindBeginning(Node *head) {
+    Node *n1 = head;
+    Node *n2 = head;
+    
+    while (n2->getNext() != nullptr) {
+        n1 = n1->getNext();
+        n2 = n2->getNext()->getNext();
+        if (n1 == n2) {
+            break;
+        }
+    }
+    
+    if (n2->getNext() == nullptr) {
+        return nullptr;
+    }
+    
+    n1 = head;
+    while (n1 != n2) {
+        n1 = n1->getNext();
+        n2 = n2->getNext();
+    }
+    return n2;
 }

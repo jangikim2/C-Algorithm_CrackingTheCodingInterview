@@ -11,3 +11,6 @@ The relevant chapter in this project :
  - Chapter 4 : Trees and Graphics
  - Chapter 8 : Recursion
  - Chapter 9 : Sorting and Searching
+
+Development tool : Xcode Version 7.2.1
+Language : C++ 11
