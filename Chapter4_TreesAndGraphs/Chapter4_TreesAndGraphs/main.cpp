@@ -339,11 +339,28 @@ Tree *succesorInOrder(struct Tree *node)
     return y;
 }
 
+//4.6
+Tree *lowestCommonAncestor(Tree *node, Tree *p, Tree *q)
+{
+    Tree *left, *right;
+    if(node == NULL) return NULL;
+    if(node->left == p || node->left == q
+       || node->right == p || node->right == q) return node;
+    
+    left = lowestCommonAncestor(node->left,p,q);
+    right = lowestCommonAncestor(node->right, p,q);
+    if(left && right)
+        return node;
+    else
+        return (left) ? left : right;
+}
+
 int main(int argc, const char * argv[]) {
     // insert code here...
     char ch, ch1, ch2;
     Tree *found;
     Tree *succ;
+	Tree *ancestor;
     
     std::cout << "Hello, World!\n";
     
@@ -472,6 +489,54 @@ int main(int argc, const char * argv[]) {
         else
             cout << "In Order Successor of " << ch << " is None\n";
     }
+    
+    //4.6 This is the same as the solution of bogotobogo.com.
+    /* Lowest Common Ancestor */
+    ch1 = 'A';
+    ch2 = 'C';
+    ancestor =
+    lowestCommonAncestor(root,
+                         lookUp(root,ch1), lookUp(root,ch2));
+    if(ancestor)
+        cout << "The lowest common ancestor of " << ch1 << " and "
+        << ch2 << " is " << ancestor->data << endl;
+    
+    ch1 = 'E';
+    ch2 = 'H';
+    ancestor =
+    lowestCommonAncestor(root,
+                         lookUp(root,ch1), lookUp(root,ch2));
+    if(ancestor)
+        cout << "The lowest common ancestor of " << ch1 << " and "
+        << ch2 << " is " << ancestor->data << endl;
+
+    ch1 = 'D';
+    ch2 = 'E';
+    ancestor =
+    lowestCommonAncestor(root,
+                         lookUp(root,ch1), lookUp(root,ch2));
+    if(ancestor)
+        cout << "The lowest common ancestor of " << ch1 << " and "
+        << ch2 << " is " << ancestor->data << endl;
+    
+    ch1 = 'G';
+    ch2 = 'I';
+    ancestor =
+    lowestCommonAncestor(root,
+                         lookUp(root,ch1), lookUp(root,ch2));
+    if(ancestor)
+        cout << "The lowest common ancestor of " << ch1 << " and "
+        << ch2 << " is " << ancestor->data << endl;
+
+    
+    ch1 = 'H';
+    ch2 = 'I';
+    ancestor =
+    lowestCommonAncestor(root,
+                         lookUp(root,ch1), lookUp(root,ch2));
+    if(ancestor)
+        cout << "The lowest common ancestor of " << ch1 << " and "
+        << ch2 << " is " << ancestor->data << endl;
     
     
     return 0;
