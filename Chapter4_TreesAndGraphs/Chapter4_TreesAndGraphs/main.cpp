@@ -355,6 +355,81 @@ Tree *lowestCommonAncestor(Tree *node, Tree *p, Tree *q)
         return (left) ? left : right;
 }
 
+//4.7
+
+bool matchTree(Tree *r1, Tree *r2)
+{
+    /* Nothing left in the subtree */
+    if(r1 == NULL && r2 == NULL)
+        return true;
+    /* Big tree empty and subtree not found */
+    if(r1 == NULL || r2 == NULL)
+        return false;
+    /* Not matching */
+    if(r1->data != r2->data)
+        return false;
+    return (matchTree(r1->left, r2->left) &&
+            matchTree(r1->right, r2->right));
+}
+
+bool subTree(Tree *r1, Tree *r2)
+{
+    /*Big tree empty and subtree not found */
+    if(r1 == NULL)
+        return false;
+    if(r1->data == r2->data)
+        if(matchTree(r1, r2)) return true;
+    return
+    (subTree(r1->left, r2) || subTree(r1->right, r2));
+}
+
+bool isSubTree(Tree *r1, Tree *r2)
+{
+    /* Empty tree is subtree */
+    if(r2 == NULL)
+        return true;
+    else
+        return subTree(r1, r2);
+}
+
+//4.8
+typedef struct Tree48
+{
+    int data;
+    Tree48 *left;
+    Tree48 *right;
+} Node;
+
+/* recursion routine to find path */
+void pathFinder48(Node* node, int path[], int level)
+{
+    if(node == NULL) return;
+    // leaf node save
+    if(node->left == NULL && node->right == NULL) {
+        path[level] = node->data;
+        int sum = 0;
+        for(int i = 0; i <= level; i++) {
+            cout << path[i] << " ";
+            sum += path[i];
+        }
+        cout << "  sum = " << sum << endl;
+        return;
+    }
+    // parent node save
+    path[level] = node->data;
+    pathFinder48(node->left, path, level+1);
+    pathFinder48(node->right, path, level+1);
+}
+
+struct Tree48* insertNode(Tree48 *node, int data)
+{
+    node->data = data;
+    node->left = NULL;
+    node->right = NULL;
+    return node;
+}
+
+
 int main(int argc, const char * argv[]) {
     // insert code here...
     char ch, ch1, ch2;
@@ -537,6 +612,61 @@ int main(int argc, const char * argv[]) {
     if(ancestor)
         cout << "The lowest common ancestor of " << ch1 << " and "
         << ch2 << " is " << ancestor->data << endl;
+    
+    //4.7 This is the same as the solution of bogotobogo.com.
+    /* subtree */
+    Tree *root2 = newTreeNode('D');
+    insertTreeNode(root2,'C');
+    insertTreeNode(root2,'E');
+    cout << "1-2 subtree: " << isSubTree(root, root2) << endl;
+    
+    Tree *root3 = newTreeNode('B');
+    insertTreeNode(root3,'A');
+    insertTreeNode(root3,'D');
+    insertTreeNode(root3,'C');
+    insertTreeNode(root3,'E');
+    cout << "1-3 subtree: " << isSubTree(root, root3) << endl;
+    
+    Tree *root4 = newTreeNode('B');
+    insertTreeNode(root4,'D');
+    insertTreeNode(root4,'C');
+    insertTreeNode(root4,'E');
+    cout << "1-4 subtree: " << isSubTree(root, root4) << endl;
+    
+    cout << "2-3 subtree: " << isSubTree(root2, root3) << endl;
+    cout << "3-2 subtree: " << isSubTree(root3, root2) << endl;
+
+    //4.8 This is the same as the solution of bogotobogo.com.
+    {
+        Tree48 *root = NULL;
+        Tree48 *nodeLeft = NULL;
+        Tree48 *nodeRight = NULL;
+        
+        /*       3
+                / \
+              -1   2
+              / \  /
+             5   7 1         
+         */
+        // unsorted binary tree
+        // root
+        root = insertNode(new Tree48, 3);
+        
+        // 1st level
+        nodeLeft = insertNode(new Tree48, -1);
+        root->left = nodeLeft;
+        nodeRight = insertNode(new Tree48, 2);
+        root->right = nodeRight;
+        
+        // 2nd level
+        nodeLeft->left = insertNode(new Tree48, 5);
+        nodeLeft->right = insertNode(new Tree48, 7);
+        nodeRight->left = insertNode(new Tree48, 1);
+        
+        // path find
+        int path[10];
+        pathFinder48(root,path,0);
+    }
     
     
     return 0;
