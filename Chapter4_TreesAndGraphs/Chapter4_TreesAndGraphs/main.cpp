@@ -646,7 +646,7 @@ int main(int argc, const char * argv[]) {
                 / \
               -1   2
               / \  /
-             5   7 1         
+             5   7 1
          */
         // unsorted binary tree
         // root
@@ -671,3 +671,55 @@ int main(int argc, const char * argv[]) {
     
     return 0;
 }
+
+/* output */
+/*
+ Hello, World!
+ size = 9
+ max depth = 3
+ min depth = 2
+ This tree is balanced!
+ printing paths ...
+ FBA
+ FBDC
+ FBDE
+ FGIH
+ B
+ D
+ E
+ True in search return ...
+ Tree start
+ 1-2-3-4-5-6-7-8-9-10-
+ Tree end
+ max depth = 3
+ 521
+ 5234
+ 5867
+ 58910
+ Level at 0: F
+ Level at 1: B G
+ Level at 2: A D I
+ Level at 3: C E H
+ levelPrint()
+ level 0: F
+ level 1: B G
+ level 2: A D I
+ level 3: C E H
+ In Order Successor of B is C
+ In Order Successor of E is F
+ In Order Successor of I is None
+ The lowest common ancestor of A and C is B
+ The lowest common ancestor of E and H is F
+ The lowest common ancestor of D and E is B
+ The lowest common ancestor of G and I is F
+ The lowest common ancestor of H and I is G
+ 1-2 subtree: 1
+ 1-3 subtree: 1
+ 1-4 subtree: 0
+ 2-3 subtree: 0
+ 3-2 subtree: 1
+ 3 -1 5   sum = 7
+ 3 -1 7   sum = 9
+ 3 2 1   sum = 6
+ Program ended with exit code: 0
+*/
