@@ -13,6 +13,8 @@
 
 using namespace std;
 
+#define COLUMN 4
+
 //9.1
 void merge(int *a, int *b, int n, int m) {
     int k = m + n - 1; // Index of last location of array b
@@ -133,6 +135,20 @@ int search951(string strings[], string str, int size) {
     return search952(strings, str, 0, size - 1);
 }
 
+bool FindElem(int mat[][COLUMN], int elem, int M) {
+    int row = 0;
+    int col = COLUMN-1;
+    while ( row < M && col >= 0 ) {
+        if ( mat[row][col] == elem ) {
+            return true;
+        } else if ( mat[row][col] > elem ) {
+            col--;
+        } else {
+            row++;
+        }
+    }
+    return false;
+}
 
 int main(int argc, const char * argv[]) {
     // insert code here...
@@ -189,6 +205,18 @@ int main(int argc, const char * argv[]) {
     int find_string = search951(strings, string_t, sizeof(strings)/sizeof(strings[0]) - 1);
     cout << "Founded at : " << find_string << endl;
 
+    //9.6
+    int mat[4][4] = {   {1, 2, 3, 4},
+                        {5, 6, 7, 8},
+                        {9, 10, 11, 12},
+                        {13, 14, 15, 16},
+                    };
+    //condition 1
+    bool mat_f = FindElem(mat, 7, 4);
+    //condition 2
+    //bool mat_f = FindElem(mat, 17, 4);
+    cout << "Founded (1) or Not Founded (0) : " << mat_f << endl;
+    
     return 0;
 }
 
@@ -221,5 +249,6 @@ int main(int argc, const char * argv[]) {
  I I I ate eat att can eel eth het the yum
  Binary search output : 8
  Founded at : 4
+ Founded (1) or Not Founded (0) : 1
  Program ended with exit code: 0
  */
