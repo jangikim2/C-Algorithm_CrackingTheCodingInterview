@@ -16,7 +16,6 @@ void merge(int *a, int *b, int n, int m) {
     int i = n - 1; // Index of last element in array a
     int j = m - 1; // Index of last element in array b
     
-    //9.1
     //Start comparing from the last element and merge a and b
     while (i >= 0 && j >= 0) {
         if(a[i] > b[j]) {
@@ -34,6 +33,7 @@ int main(int argc, const char * argv[]) {
     // insert code here...
     std::cout << "Hello, World!\n";
     
+    //9.1
     int a[20] = {1, 3, 5, 7, 9, 11};
     int b[3] = {2, 4, 6};
         
