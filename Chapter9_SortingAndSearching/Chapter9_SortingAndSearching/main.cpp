@@ -41,5 +41,32 @@ int main(int argc, const char * argv[]) {
     for (auto item : a) {
         cout << item << endl;
     }
+
     return 0;
 }
+
+/* output */
+/*
+ Hello, World!
+ 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 9
+ 11
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ Program ended with exit code: 0
+ */
