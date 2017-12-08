@@ -95,6 +95,45 @@ int search(int a[], int l, int u, int x){
     return -1;
 }
 
+//9.5
+int search952(string strings[], string str, int first, int last)
+{
+    while (first <= last) {
+        //Ensure there is something at the end
+        while (first <= last && strings[last] == "") {
+            --last;
+        }
+        if(last < first) {
+            return -1; //this block was empty, so fail
+        }
+        int mid = (last + first) >> 1;
+        while (strings[mid] == "") {
+            ++mid; // will always find one
+        }
+        int r = strings[mid].compare(str);
+        if (r == 0) return mid;
+        if (r < 0) {
+            first = mid + 1;
+        } else {
+            last = mid -1;
+        }
+    }
+    return -1;
+}
+
+int search951(string strings[], string str, int size) {
+    if(strings == nullptr || str.empty()) return -1;
+    if(str == "") {
+        for(int i = 0; i < size; i++) {
+            if(strings[i] == "") return i;
+        }
+        return -1;
+    }
+    
+    return search952(strings, str, 0, size - 1);
+}
+
+
 int main(int argc, const char * argv[]) {
     // insert code here...
     std::cout << "Hello, World!\n";
@@ -139,8 +178,16 @@ int main(int argc, const char * argv[]) {
     int find_n = search(arr, 0, n, 5);
     cout << "Binary search output : " << find_n << endl;
     
-    //9.5
+    //9.4 This is just skipped because of the enough explannation of textbook.
     
+    //9.5
+    //condition 1
+    string strings[] = {"at", "","","","ball","","","car","","","dad","",""};
+    string string_t = "ball";
+    //string strings[] = {"at","","","","","ball","car","","","dad","",""};
+    //string string_t = "ballcar";
+    int find_string = search951(strings, string_t, sizeof(strings)/sizeof(strings[0]) - 1);
+    cout << "Founded at : " << find_string << endl;
 
     return 0;
 }
@@ -173,5 +220,6 @@ int main(int argc, const char * argv[]) {
  after sort
  I I I ate eat att can eel eth het the yum
  Binary search output : 8
+ Founded at : 4
  Program ended with exit code: 0
  */
